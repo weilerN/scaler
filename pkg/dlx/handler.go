@@ -99,6 +99,15 @@ func (h *Handler) handleRequest(res http.ResponseWriter, req *http.Request) {
 	} else {
 		targetNameHeaderValue := req.Header.Get(h.targetNameHeader)
 		path := req.Header.Get(h.targetPathHeader)
+		h.logger.WarnWith("KAWABANGA",
+			"h.targetPathHeader", h.targetPathHeader,
+			"path", path,
+			"requestHeaders", req.Header,
+			"requestURL", req.URL.String(),
+			"requestHost:", req.Host,
+			"requestPath", req.URL.Path,
+		)
+
 		if targetNameHeaderValue == "" {
 			h.logger.WarnWith("When ingress not set, must pass header value",
 				"missingHeader", h.targetNameHeader)
